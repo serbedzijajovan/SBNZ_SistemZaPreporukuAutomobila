@@ -1,0 +1,35 @@
+package forward;
+import  com.ftn.sbnz.model.models.CarRecommendationCriteria;
+import  com.ftn.sbnz.model.models.CarScore;
+
+
+// Increase score for fuel efficiency based on user preference
+rule "Increase Score for Fuel Efficiency"
+when
+    $carScore : CarScore($car : car, $car.mixedFuelConsumptionPer100KmL < 15, isCriteriaMet(1))
+then
+    $carScore.getCarRecommendationCriteria().setPrefersFuelEfficiency(false);
+    $carScore.addPoints(15); // Adds points if the user prefers fuel-efficient cars
+    update($carScore);
+end
+
+// Increase score for family friendliness based on user preference
+rule "Increase Score for Family Friendliness"
+when
+//    $carScore : CarScore($car : car, $car.numberOfSeats >= 5, $car.bodyType in ("SUV", "minivan"))
+    $carScore : CarScore($car : car, $car.bodyType in ("SUV", "minivan"), isCriteriaMet(2))
+then
+    $carScore.getCarRecommendationCriteria().setPrefersFamilyFriendly(false);
+    $carScore.addPoints(15); // Adds points if the user prefers family-friendly cars
+    update($carScore);
+end
+
+// Increase score for performance based on user preference
+rule "Increase Score for Performance"
+when
+    $carScore : CarScore($car : car, $car.engineHp > 150, $car.acceleration0100KmHS < 8, isCriteriaMet(3))
+then
+    $carScore.getCarRecommendationCriteria().setPrefersPerformance(false);
+    $carScore.addPoints(15); // Adds points if the user prefers high-performance cars
+    update($carScore);
+end
