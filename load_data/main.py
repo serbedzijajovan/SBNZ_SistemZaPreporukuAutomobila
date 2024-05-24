@@ -4,6 +4,7 @@ import requests
 
 
 def read_cars():
+
     # Read data without specifying dtype for potentially problematic columns
     df = pd.read_csv("Car Dataset 1945-2020.csv", delimiter=',')
 
@@ -58,6 +59,12 @@ def read_cars():
     for col in cols_to_fix:
         df[col] = df[col].astype(str).str.replace(',', '.')
 
+    def parse_seats(seat_str):
+        return seat_str.split(',')[0]
+
+    df['number_of_seats'] = df['number_of_seats'].apply(parse_seats)
+    df['engine_type'] = df['engine_type'].apply(parse_seats)
+
     # Rename columns according to rename_map
     df = df.rename(columns=rename_map)
 
@@ -91,8 +98,8 @@ def post_cars(cars):
     url = 'http://localhost:8080/cars/populate'
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json=cars, headers=headers)
-    print("Status Code:", response.status_code)
-    print("Response Body:", response.text)
+    # print("Status Code:", response.status_code)
+    # print("Response Body:", response.text)
 
 
 if __name__ == '__main__':

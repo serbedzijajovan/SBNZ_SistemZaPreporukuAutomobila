@@ -2,6 +2,9 @@ package com.ftn.sbnz.model.models;
 
 import java.io.Serializable;
 
+import com.ftn.sbnz.model.models.enums.BodyType;
+import com.ftn.sbnz.model.models.enums.EngineType;
+import com.ftn.sbnz.model.models.enums.TransmissionType;
 import lombok.*;
 
 @Getter
@@ -15,17 +18,17 @@ public class Car implements Serializable {
     private String model;  // Specific model of the car
     private Integer yearFrom;  // Model year start
     private Integer yearTo;  // Model year end
-    private String bodyType;  // Type of the car body (e.g., sedan, SUV, hatchback)
-    private String numberOfSeats;  // Seating capacity
+    private BodyType bodyType;  // Type of the car body (e.g., sedan, SUV, hatchback)
+    private Integer numberOfSeats;  // Seating capacity
     private Double lengthMm;  // Length of the car
     private Double widthMm;  // Width of the car
     private Double heightMm;  // Height of the car
     private Double wheelbaseMm;  // Wheelbase of the car
     private Integer curbWeightKg;  // Weight of the car without passengers or cargo
     private Integer engineHp;  // Horsepower, indicating the car’s power
-    private String engineType;  // Type of engine (e.g., petrol, diesel, electric)
+    private EngineType engineType;  // Type of engine (e.g., petrol, diesel, electric)
     private String driveWheels;  // Drive configuration (e.g., front-wheel drive, all-wheel drive)
-    private String transmission;  // Type of transmission (e.g., manual, automatic)
+    private TransmissionType transmission;  // Type of transmission (e.g., manual, automatic)
     private Integer fuelTankCapacityL;  // Size of the fuel tank
     private Double mixedFuelConsumptionPer100KmL;  // Average fuel consumption
     private Integer maxSpeedKmPerH;  // Maximum speed

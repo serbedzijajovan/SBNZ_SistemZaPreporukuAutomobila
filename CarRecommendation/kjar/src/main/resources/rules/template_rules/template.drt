@@ -1,0 +1,28 @@
+template header
+PreferenceType
+Field
+Operator
+Value
+Points
+
+package template_rules;
+
+import com.ftn.sbnz.model.models.CarPreferenceType;
+import com.ftn.sbnz.model.models.CarScore;
+import com.ftn.sbnz.model.models.enums.BodyType;
+import com.ftn.sbnz.model.models.enums.DriveWheels;
+import com.ftn.sbnz.model.models.enums.TransmissionType;
+import com.ftn.sbnz.model.models.enums.EngineType;
+
+template "classification-rules"
+
+rule "Increase Score for @{PreferenceType} and @{Field} with value @{Value}"
+lock-on-active
+when
+    $carScore : CarScore($car : car, carPreferenceType == @{PreferenceType}, $car.@{Field} @{Operator} @{Value})
+then
+    $carScore.addPoints(@{Points});
+    update($carScore);
+end
+
+end template

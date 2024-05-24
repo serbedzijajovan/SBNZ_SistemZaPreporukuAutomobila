@@ -1,35 +1,40 @@
 package forward;
-import  com.ftn.sbnz.model.models.CarRecommendationCriteria;
 import  com.ftn.sbnz.model.models.CarScore;
 
 
 // Increase score for fuel efficiency based on user preference
 rule "Increase Score for Fuel Efficiency"
+lock-on-active
 when
-    $carScore : CarScore($car : car, $car.mixedFuelConsumptionPer100KmL < 15, isCriteriaMet(1))
+    $carScore : CarScore($car : car, $car.mixedFuelConsumptionPer100KmL < 15)
 then
-    $carScore.getCarRecommendationCriteria().setPrefersFuelEfficiency(false);
+//    $carScore.getCarRecommendationCriteria().setPrefersFuelEfficiency(false);
     $carScore.addPoints(15); // Adds points if the user prefers fuel-efficient cars
     update($carScore);
+    System.out.println("USO 1");
 end
 
 // Increase score for family friendliness based on user preference
 rule "Increase Score for Family Friendliness"
+lock-on-active
 when
 //    $carScore : CarScore($car : car, $car.numberOfSeats >= 5, $car.bodyType in ("SUV", "minivan"))
-    $carScore : CarScore($car : car, $car.bodyType in ("SUV", "minivan"), isCriteriaMet(2))
+    $carScore : CarScore($car : car, $car.bodyType in ("SUV", "minivan"))
 then
-    $carScore.getCarRecommendationCriteria().setPrefersFamilyFriendly(false);
+//    $carScore.getCarRecommendationCriteria().setPrefersFamilyFriendly(false);
     $carScore.addPoints(15); // Adds points if the user prefers family-friendly cars
     update($carScore);
+    System.out.println("USO 2");
 end
 
 // Increase score for performance based on user preference
 rule "Increase Score for Performance"
+lock-on-active
 when
-    $carScore : CarScore($car : car, $car.engineHp > 150, $car.acceleration0100KmHS < 8, isCriteriaMet(3))
+    $carScore : CarScore($car : car, $car.engineHp > 150, $car.acceleration0100KmHS < 8)
 then
-    $carScore.getCarRecommendationCriteria().setPrefersPerformance(false);
+//    $carScore.getCarRecommendationCriteria().setPrefersPerformance(false);
     $carScore.addPoints(15); // Adds points if the user prefers high-performance cars
     update($carScore);
+    System.out.println("USO 3");
 end

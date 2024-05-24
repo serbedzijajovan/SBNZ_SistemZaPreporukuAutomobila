@@ -2,10 +2,16 @@
     <kbase name="fwdBase" packages="forward">
         <ksession default="true" name="fwdKsession"/>
     </kbase>
+
     <kbase name="bwBase" packages="backward">
         <ksession name="bwKsession"/>
     </kbase>
+
     <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">
         <ksession name="cepKsession" clockType="pseudo"/>
+    </kbase>
+
+    <kbase name="templateBase" eventProcessingMode="stream" packages="template_rules">
+        <ksession name="templateKsession" />
     </kbase>
 </kmodule>

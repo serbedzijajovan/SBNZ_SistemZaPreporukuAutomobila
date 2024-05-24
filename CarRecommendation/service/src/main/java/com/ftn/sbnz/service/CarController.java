@@ -2,7 +2,7 @@ package com.ftn.sbnz.service;
 
 import com.ftn.sbnz.model.models.Car;
 import com.ftn.sbnz.model.models.CarFilterCriteria;
-import com.ftn.sbnz.model.models.CarRecommendationCriteria;
+import com.ftn.sbnz.model.models.CarPreferenceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +28,8 @@ public class CarController {
 	}
 
 	@GetMapping("/recommendations")
-	public List<Car> getCarRecommendations(
-			@RequestParam Boolean prefersFuelEfficiency,
-			@RequestParam Boolean prefersFamilyFriendly,
-			@RequestParam Boolean prefersPerformance
-	) {
-
-		CarRecommendationCriteria criteria = new CarRecommendationCriteria(prefersFuelEfficiency, prefersFamilyFriendly, prefersPerformance);
-		return carService.getCarRecommendations(criteria);
+	public List<Car> getCarRecommendations(@RequestParam CarPreferenceType carPreferenceType) {
+		return carService.getCarRecommendationsTemplate(carPreferenceType);
 	}
 
 	@GetMapping("/filter")
