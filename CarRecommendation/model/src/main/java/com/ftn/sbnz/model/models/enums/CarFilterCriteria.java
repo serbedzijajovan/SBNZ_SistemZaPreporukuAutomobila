@@ -1,4 +1,4 @@
-package com.ftn.sbnz.model.models;
+package com.ftn.sbnz.model.models.enums;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
 package com.ftn.sbnz.service;
 
 import com.ftn.sbnz.model.models.Car;
-import com.ftn.sbnz.model.models.CarFilterCriteria;
-import com.ftn.sbnz.model.models.CarPreferenceType;
+import com.ftn.sbnz.model.models.enums.CarFilterCriteria;
+import com.ftn.sbnz.model.models.enums.CarPreferenceType;
 import com.ftn.sbnz.model.models.CarScore;
 
 import org.drools.template.DataProvider;
@@ -24,19 +24,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class CarService {
+public class CarServiceDROOLS {
     private final KieContainer kieContainer;
 
     public static List<Car> cars = new ArrayList<>();
     int scoreThreshold = 15;
 
     @Autowired
-    public CarService(KieContainer kieContainer) {
+    public CarServiceDROOLS(KieContainer kieContainer) {
         this.kieContainer = kieContainer;
     }
 
     public void setCars(List<Car> cars) {
-        CarService.cars = cars;
+        CarServiceDROOLS.cars = cars;
     }
 
     public void addCar(Car car) {

@@ -7,13 +7,17 @@ import com.ftn.sbnz.model.models.enums.EngineType;
 import com.ftn.sbnz.model.models.enums.TransmissionType;
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class Car implements Serializable {
-    private Long id;
+@Entity
+@Table(name = "cars")
+public class Car extends BaseEntityAudit implements Serializable {
     private String make;  // Brand of the car
     private String model;  // Specific model of the car
     private Integer yearFrom;  // Model year start
@@ -35,5 +39,4 @@ public class Car implements Serializable {
     private Double cityFuelPer100KmL;  // City fuel consumption
     private Double highwayFuelPer100KmL;  // Highway fuel consumption
     private Double acceleration0100KmHS;  // Time taken to accelerate from 0 to 100 km/h
-
 }

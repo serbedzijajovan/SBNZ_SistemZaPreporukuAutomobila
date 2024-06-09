@@ -4,7 +4,6 @@ import requests
 
 
 def read_cars():
-
     # Read data without specifying dtype for potentially problematic columns
     df = pd.read_csv("Car Dataset 1945-2020.csv", delimiter=',')
 

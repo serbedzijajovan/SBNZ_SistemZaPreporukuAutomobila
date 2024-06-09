@@ -2,6 +2,7 @@ package com.ftn.sbnz.model.models;
 
 import java.io.Serializable;
 
+import com.ftn.sbnz.model.models.enums.CarPreferenceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
