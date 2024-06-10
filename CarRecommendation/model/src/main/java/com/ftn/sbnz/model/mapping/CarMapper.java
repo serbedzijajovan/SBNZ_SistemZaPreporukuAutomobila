@@ -1,6 +1,6 @@
 package com.ftn.sbnz.model.mapping;
 
-import com.ftn.sbnz.model.DTO.CarDTO;
+import com.ftn.sbnz.model.dto.CarDTO;
 import com.ftn.sbnz.model.models.Car;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

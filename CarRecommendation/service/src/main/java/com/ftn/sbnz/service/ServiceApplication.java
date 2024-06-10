@@ -1,7 +1,6 @@
 package com.ftn.sbnz.service;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
@@ -9,7 +8,7 @@ import org.kie.api.runtime.KieContainer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 @EntityScan(basePackages = {"com.ftn.sbnz.model.models", "com.ftn.sbnz.template.kjar"})
 public class ServiceApplication {
     public static void main(String[] args) {

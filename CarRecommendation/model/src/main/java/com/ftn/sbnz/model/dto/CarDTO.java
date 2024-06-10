@@ -1,4 +1,4 @@
-package com.ftn.sbnz.model.DTO;
+package com.ftn.sbnz.model.dto;
 
 import com.ftn.sbnz.model.models.enums.BodyType;
 import com.ftn.sbnz.model.models.enums.EngineType;

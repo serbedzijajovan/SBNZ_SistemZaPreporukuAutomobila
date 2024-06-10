@@ -1,6 +1,6 @@
 package com.ftn.sbnz.service.controllers;
 
-import com.ftn.sbnz.model.DTO.CarDTO;
+import com.ftn.sbnz.model.dto.CarDTO;
 import com.ftn.sbnz.model.mapping.CarMapper;
 import com.ftn.sbnz.model.models.Car;
 import com.ftn.sbnz.model.models.enums.CarPreferenceType;
