@@ -25,6 +25,9 @@ public class User extends BaseEntityAudit implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private boolean likeBanned = false;
+
     public User(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;

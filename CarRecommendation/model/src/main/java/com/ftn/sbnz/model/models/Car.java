@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "cars")
+
 public class Car extends BaseEntityAudit implements Serializable {
     private String make;  // Brand of the car
     private String model;  // Specific model of the car

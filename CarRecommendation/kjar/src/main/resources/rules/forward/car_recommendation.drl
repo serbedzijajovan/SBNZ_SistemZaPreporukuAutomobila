@@ -1,40 +1,36 @@
 package forward;
-import  com.ftn.sbnz.model.models.CarScore;
+import  com.ftn.sbnz.model.models.Car;
+import com.ftn.sbnz.model.events.Filter1;
+import com.ftn.sbnz.model.events.Filter2;
 
+import java.util.ArrayList;
+import java.util.List;
 
-// Increase score for fuel efficiency based on user preference
-rule "Increase Score for Fuel Efficiency"
-lock-on-active
+global String makeFilter;
+global String modelFilter;
+global Integer hpFilter;
+global List<Car> filteredCars;
+
+rule "Filter by make"
 when
-    $carScore : CarScore($car : car, $car.mixedFuelConsumptionPer100KmL < 15)
+    $car: Car(make==makeFilter)
 then
-//    $carScore.getCarRecommendationCriteria().setPrefersFuelEfficiency(false);
-    $carScore.addPoints(15); // Adds points if the user prefers fuel-efficient cars
-    update($carScore);
-    System.out.println("USO 1");
+    insert(new Filter1($car));
 end
 
-// Increase score for family friendliness based on user preference
-rule "Increase Score for Family Friendliness"
-lock-on-active
+
+rule "Filter by model"
 when
-//    $carScore : CarScore($car : car, $car.numberOfSeats >= 5, $car.bodyType in ("SUV", "minivan"))
-    $carScore : CarScore($car : car, $car.bodyType in ("SUV", "minivan"))
+    $filter : Filter1($car : car, $car.model == modelFilter)
 then
-//    $carScore.getCarRecommendationCriteria().setPrefersFamilyFriendly(false);
-    $carScore.addPoints(15); // Adds points if the user prefers family-friendly cars
-    update($carScore);
-    System.out.println("USO 2");
+    retract($filter)
+    insert(new Filter2($car));
 end
 
-// Increase score for performance based on user preference
-rule "Increase Score for Performance"
-lock-on-active
+rule "Filter by HP"
 when
-    $carScore : CarScore($car : car, $car.engineHp > 150, $car.acceleration0100KmHS < 8)
+    $filter : Filter2($car : car, $car.engineHp >= hpFilter)
 then
-//    $carScore.getCarRecommendationCriteria().setPrefersPerformance(false);
-    $carScore.addPoints(15); // Adds points if the user prefers high-performance cars
-    update($carScore);
-    System.out.println("USO 3");
+    retract($filter)
+    filteredCars.add($car);
 end

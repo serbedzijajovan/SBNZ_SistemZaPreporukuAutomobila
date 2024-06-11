@@ -1,0 +1,53 @@
+<div class="container">
+
+  <mat-card *ngIf="showLoginForm">
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+
+        <div class="button">
+          <button type="submit" mat-button>Login</button>
+        </div>
+
+        <p class="footer" (click)="swapForm()"> Need an account? <span class="footer-clickable">Register</span> </p>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!showLoginForm">
+    <mat-card-title>Registration</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="registrationForm" (ngSubmit)="register()">
+
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Full Name" formControlName="fullName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+
+        <div class="button">
+          <button type="submit" mat-button>Register</button>
+        </div>
+
+        <p class="footer" (click)="swapForm()"> Already have an account? <span class="footer-clickable">Log In</span> </p>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

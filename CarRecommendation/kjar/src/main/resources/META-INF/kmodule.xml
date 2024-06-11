@@ -7,6 +7,10 @@
         <ksession name="bwKsession"/>
     </kbase>
 
+    <kbase name="accBase" packages="accumulatee">
+        <ksession name="accKsession"/>
+    </kbase>
+
     <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">
         <ksession name="cepKsession" clockType="pseudo"/>
     </kbase>

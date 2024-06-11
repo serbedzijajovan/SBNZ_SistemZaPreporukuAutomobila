@@ -97,6 +97,7 @@ def post_cars(cars):
     url = 'http://localhost:8080/cars/populate'
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json=cars, headers=headers)
+    print(response)
     # print("Status Code:", response.status_code)
     # print("Response Body:", response.text)
 

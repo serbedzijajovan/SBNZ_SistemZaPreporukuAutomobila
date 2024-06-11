@@ -1,1 +1,56 @@
 package cep;
+import  com.ftn.sbnz.model.models.CarLike;
+import com.ftn.sbnz.model.events.TooManyLikesEvent;
+import com.ftn.sbnz.model.events.ShouldBanUserEvent;
+import com.ftn.sbnz.model.events.UnbanUserEvent;
+
+import java.util.Set;
+import java.util.HashSet;
+
+global java.util.Queue eventQueue;
+global java.util.Queue eventUnbanQueue;
+
+rule "Too many likes in an hour"
+    when
+        $c: CarLike($userId: user.id, $createdAt: createdAt)
+        Number(intValue >= 2) from accumulate(
+            $c2: CarLike(
+                this != $c,
+                user.id == $userId,
+                createdAt after[0s, 1h] $createdAt
+            ),
+            count($c2)
+        )
+    then
+        insert(new TooManyLikesEvent($userId));
+end
+
+rule "Too many same car likes in an hour"
+    when
+        $event: TooManyLikesEvent($userId: userId, $createdAt: createdAt)
+
+        // Collect unique carIds liked by the same user
+        $uniqueCarIds: Set() from accumulate(
+            $c: CarLike(user.id == $userId),
+            init( Set carIds = new HashSet(); ),
+            action( carIds.add($c.getCar().getId()); ),
+            result( carIds )
+        )
+
+        // Check if the size of the unique carIds set is greater than 5
+        Number(intValue < 4) from $uniqueCarIds.size()
+    then
+        retract($event);
+        eventQueue.add(new ShouldBanUserEvent($userId));
+        insert(new ShouldBanUserEvent($userId));
+end
+
+rule "Unban user"
+    when
+        $unbanEvent: UnbanUserEvent($userId: userId)
+        $shouldBanEvent: ShouldBanUserEvent(userId == $userId)
+    then
+        retract($unbanEvent);
+        retract($shouldBanEvent);
+        eventUnbanQueue.add(new UnbanUserEvent($userId));
+end

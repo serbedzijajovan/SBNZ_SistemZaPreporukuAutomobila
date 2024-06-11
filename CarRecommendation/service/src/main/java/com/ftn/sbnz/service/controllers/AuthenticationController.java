@@ -28,22 +28,20 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody RegisterUserDTO registerUserDto) {
         if (userService.userExists(registerUserDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is already taken!");
         }
-
-        User registeredUser = authenticationService.signup(registerUserDto);
-
-        return ResponseEntity.ok(registeredUser);
+        authenticationService.signup(registerUserDto);
+        return ResponseEntity.status(HttpStatus.OK).body("User registered successfully!");
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> authenticate(@RequestBody LoginUserDTO loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        LoginResponseDTO loginResponse = new LoginResponseDTO(jwtToken, jwtService.getExpirationTime());
+        LoginResponseDTO loginResponse = new LoginResponseDTO(authenticatedUser.getUsername(), jwtToken);
         return ResponseEntity.ok(loginResponse);
     }
 }

@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDTO implements Serializable {
+    private Long id;
     private String make;
     private String model;
     private Integer yearFrom;

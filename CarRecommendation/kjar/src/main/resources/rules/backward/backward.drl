@@ -1,1 +1,19 @@
 package backward;
+
+import  com.ftn.sbnz.model.models.drools.GraphItem;
+
+global String param;
+global java.util.List resultList;
+
+query isContainedIn( String x, String y, String type )
+    GraphItem( x, y, type; )
+    or
+    ( GraphItem( z, y; ) and isContainedIn( x, z, type; ) )
+end
+
+rule "Check if Location is Contained"
+when
+    isContainedIn($carId, param, "Car";)
+then
+    resultList.add($carId);
+end

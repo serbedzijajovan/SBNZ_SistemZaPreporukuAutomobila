@@ -10,6 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponseDTO implements Serializable {
+    private String email;
     private String token;
-    private long expiresIn;
 }

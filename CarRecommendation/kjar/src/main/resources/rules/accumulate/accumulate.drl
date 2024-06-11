@@ -1,0 +1,25 @@
+package accumulatee;
+
+import com.ftn.sbnz.model.models.Car;
+import org.drools.core.spi.KnowledgeHelper;
+
+import java.util.List;
+
+rule "Count Cars for Each Make"
+    dialect "java"
+    when
+        $cars: List(size > 0) from accumulate(
+            Car($make: make) from $cars,
+            collectList($make)
+        )
+    then
+        for (Object make : $cars) {
+            int count = 0;
+            for (Car car : (List<Car>)$cars) {
+                if (car.getMake().equals(make)) {
+                    count++;
+                }
+            }
+            System.out.println("Number of cars for make " + make + ": " + count);
+        }
+end

@@ -1,13 +1,16 @@
 package com.ftn.sbnz.service.controllers;
 
+import com.ftn.sbnz.model.dto.CarLikeRequestDTO;
+import com.ftn.sbnz.model.dto.LoginResponseDTO;
+import com.ftn.sbnz.model.models.CarLike;
 import com.ftn.sbnz.model.models.User;
+import com.ftn.sbnz.model.models.enums.CarPreferenceType;
 import com.ftn.sbnz.service.services.implementations.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,17 +24,33 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    public ResponseEntity<LoginResponseDTO> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
+        LoginResponseDTO loginResponse = new LoginResponseDTO(currentUser.getEmail(), "");
 
-        return ResponseEntity.ok(currentUser);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<User>> allUsers() {
-        List <User> users = userService.findAll();
+        List<User> users = userService.findAll();
 
         return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/like-car")
+    public ResponseEntity<Object> createCarFollow(@RequestBody CarLikeRequestDTO carLikeRequestDTO) {
+        if (userService.createCarLike(carLikeRequestDTO.getEmail(), carLikeRequestDTO.getCarId())) {
+            return ResponseEntity.status(HttpStatus.OK).body("Liked successfully!");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You are not allowed to like this car!");
+    }
+
+    @GetMapping("/unban")
+    public ResponseEntity<Object> unban(@RequestParam String email) {
+        userService.unbanUser(email);
+        return ResponseEntity.status(HttpStatus.OK).body("Finished!");
     }
 }

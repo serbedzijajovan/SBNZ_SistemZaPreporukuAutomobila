@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/azure-blue.css";
+
+html, body { min-height: 100vh; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Material snackbar customization*/
+.mat-mdc-snack-bar-container{
+  &.red-snackbar {
+    --mdc-snackbar-container-color: #fff;
+    --mdc-snackbar-supporting-text-color: red;
+    --mat-snack-bar-button-color: red;
+  }
+
+  &.green-snackbar {
+    --mdc-snackbar-container-color: #fff;
+    --mdc-snackbar-supporting-text-color: green;
+    --mat-snack-bar-button-color: green;
+  }
+}
+
+* {
+  margin: 0;
+}

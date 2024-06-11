@@ -1,0 +1,35 @@
+nav {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav ul {
+  padding-left: 46px;
+  padding-top: 8px;
+  display: flex;
+}
+
+nav ul li:not(:first-child) {
+  margin-left: 15px;
+}
+
+nav ul li {
+  text-decoration: none;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.container {
+  min-height: 100vh;
+  background: dodgerblue;
+}
+
+.logout {
+  color: red;
+}

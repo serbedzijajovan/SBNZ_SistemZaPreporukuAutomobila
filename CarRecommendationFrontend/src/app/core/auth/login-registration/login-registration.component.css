@@ -1,0 +1,54 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: dodgerblue;
+}
+
+mat-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 48px 72px 16px;
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 32px;
+  padding-bottom: 32px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  text-align: right;
+}
+
+.footer {
+  color: gray;
+  margin-top: 32px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.footer-clickable {
+  color: dodgerblue;
+  font-weight: bold;
+  cursor: pointer;
+}

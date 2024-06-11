@@ -1,0 +1,20 @@
+.container {
+  padding: 48px;
+}
+
+th {
+  font-weight: bold;
+}
+
+h1 {
+  color: white;
+}
+
+.green-icon {
+  color: green;
+}
+
+.like-button {
+  color: green !important; /* Ensures the button itself doesn't affect the icon color */
+}
+
